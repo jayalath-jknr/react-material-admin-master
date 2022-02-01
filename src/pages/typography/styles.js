@@ -1,5 +1,9 @@
 import { makeStyles } from "@material-ui/styles";
 
+const theme = createTheme({
+  spacing: 4,
+});
+
 export default makeStyles(theme => ({
   dashedBorder: {
     border: "1px dashed",

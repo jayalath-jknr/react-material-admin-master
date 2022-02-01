@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Grid } from "@material-ui/core";
 import { useTheme } from "@material-ui/styles";
+import axios from "axios";
 import {
   CartesianGrid,
   Legend,
@@ -20,51 +21,53 @@ import Widget from "../../components/Widget/Widget";
 import ApexLineChart from "./components/ApexLineChart";
 import ApexHeatmap from "./components/ApexHeatmap";
 import PageTitle from "../../components/PageTitle/PageTitle";
+import TemperatureChart from "./components/temperatureChart";
+//https://power.larc.nasa.gov/api/temporal/daily/point?parameters=ALLSKY_KT,ALLSKY_NKT,ALLSKY_SFC_LW_DWN,ALLSKY_SFC_UVA,ALLSKY_SFC_UVB,ALLSKY_SFC_UV_INDEX,CLRSKY_SFC_SW_DWN,ALLSKY_SFC_SW_DWN&community=RE&longitude=10.0000&latitude=-6.0000&start=20210101&end=20210331&format=JSON
 
-const lineChartData = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
+// const lineChartData = [
+//   {
+//     name: "Page A",
+//     uv: 4000,
+//     pv: 2400,
+//     amt: 2400,
+//   },
+//   {
+//     name: "Page B",
+//     uv: 3000,
+//     pv: 1398,
+//     amt: 2210,
+//   },
+//   {
+//     name: "Page C",
+//     uv: 2000,
+//     pv: 9800,
+//     amt: 2290,
+//   },
+//   {
+//     name: "Page D",
+//     uv: 2780,
+//     pv: 3908,
+//     amt: 2000,
+//   },
+//   {
+//     name: "Page E",
+//     uv: 1890,
+//     pv: 4800,
+//     amt: 2181,
+//   },
+//   {
+//     name: "Page F",
+//     uv: 2390,
+//     pv: 3800,
+//     amt: 2500,
+//   },
+//   {
+//     name: "Page G",
+//     uv: 3490,
+//     pv: 4300,
+//     amt: 2100,
+//   },
+// ];
 
 const pieChartData = [
   { name: "Group A", value: 400 },
@@ -73,9 +76,30 @@ const pieChartData = [
   { name: "Group D", value: 200 },
 ];
 
+
+
 export default function Charts(props) {
+  const [lineChartdata, setlineChartdata] = useState([]);
+
   var theme = useTheme();
 
+  const getlineChartData = () => {
+
+    let TempData_x =[];
+        let TimeData_x =[];
+        let TempData_y =[];
+        let TimeData_y =[];
+
+    axios.get('//https://power.larc.nasa.gov/api/temporal/daily/point?parameters=ALLSKY_KT,ALLSKY_NKT,ALLSKY_SFC_LW_DWN,ALLSKY_SFC_UVA,ALLSKY_SFC_UVB,ALLSKY_SFC_UV_INDEX,CLRSKY_SFC_SW_DWN,ALLSKY_SFC_SW_DWN&community=RE&longitude=10.0000&latitude=-6.0000&start=20210101&end=20210331&format=JSON')
+    // fetch('http://localhost:9092/masterData/allData')
+      .then(response => {
+        console.log( response.data);
+        setlineChartdata (response.properties.ALLSKY_KT);
+      })
+      .catch((error) =>{
+          console.log(error);
+      })
+  }
   // local
   var [activeIndex, setActiveIndexId] = useState(0);
 
@@ -94,6 +118,7 @@ export default function Charts(props) {
         <Grid item xs={12} md={6}>
           <Widget title="Apex Line Chart" upperTitle noBodyPadding>
             <ApexLineChart />
+            <TemperatureChart/>
           </Widget>
         </Grid>
         <Grid item xs={12} md={6}>
@@ -107,7 +132,7 @@ export default function Charts(props) {
               <LineChart
                 width={500}
                 height={300}
-                data={lineChartData}
+                data={getlineChartData}
                 margin={{
                   top: 5,
                   right: 30,
@@ -116,6 +141,7 @@ export default function Charts(props) {
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
+                {/* <XAxis dataKey="name" /> */}
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
@@ -132,6 +158,7 @@ export default function Charts(props) {
                   stroke={theme.palette.secondary.main}
                 />
               </LineChart>
+              
             </ResponsiveContainer>
           </Widget>
         </Grid>

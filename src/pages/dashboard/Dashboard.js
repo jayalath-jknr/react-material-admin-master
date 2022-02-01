@@ -61,7 +61,7 @@ export default function Dashboard(props) {
       <Grid container spacing={4}>
         <Grid item lg={3} md={4} sm={6} xs={12}>
           <Widget
-            title="Visits Today"
+            title="Sunshine Today"
             upperTitle
             bodyClass={classes.fullHeightBody}
             className={classes.card}
@@ -104,13 +104,13 @@ export default function Dashboard(props) {
             >
               <Grid item xs={4}>
                 <Typography color="text" colorBrightness="secondary" noWrap>
-                  Registrations
+                  Maximum Power
                 </Typography>
                 <Typography size="md">860</Typography>
               </Grid>
               <Grid item xs={4}>
                 <Typography color="text" colorBrightness="secondary" noWrap>
-                  Sign Out
+                  Generated
                 </Typography>
                 <Typography size="md">32</Typography>
               </Grid>
@@ -125,7 +125,7 @@ export default function Dashboard(props) {
         </Grid>
         <Grid item lg={3} md={8} sm={6} xs={12}>
           <Widget
-            title="App Performance"
+            title="Performance"
             upperTitle
             className={classes.card}
             bodyClass={classes.fullHeightBody}
@@ -138,7 +138,7 @@ export default function Dashboard(props) {
                   colorBrightness="secondary"
                   className={classes.legendElementText}
                 >
-                  Integration
+                  Generating
                 </Typography>
               </div>
               <div className={classes.legendElement}>
@@ -147,8 +147,8 @@ export default function Dashboard(props) {
                   color="text"
                   colorBrightness="secondary"
                   className={classes.legendElementText}
-                >
-                  SDK
+                >Available
+                  
                 </Typography>
               </div>
             </div>
@@ -159,7 +159,7 @@ export default function Dashboard(props) {
                 colorBrightness="secondary"
                 className={classes.progressSectionTitle}
               >
-                Integration
+                Available
               </Typography>
               <LinearProgress
                 variant="determinate"
@@ -175,7 +175,7 @@ export default function Dashboard(props) {
                 colorBrightness="secondary"
                 className={classes.progressSectionTitle}
               >
-                SDK
+                Generating
               </Typography>
               <LinearProgress
                 variant="determinate"
@@ -188,7 +188,7 @@ export default function Dashboard(props) {
         </Grid>
         <Grid item lg={3} md={8} sm={6} xs={12}>
           <Widget
-            title="Server Overview"
+            title="Temperature Overview"
             upperTitle
             className={classes.card}
             bodyClass={classes.fullHeightBody}
@@ -268,7 +268,7 @@ export default function Dashboard(props) {
           </Widget>
         </Grid>
         <Grid item lg={3} md={4} sm={6} xs={12}>
-          <Widget title="Revenue Breakdown" upperTitle className={classes.card}>
+          <Widget title="Energy Consumption" upperTitle className={classes.card}>
             <Grid container spacing={2}>
               <Grid item xs={6}>
                 <ResponsiveContainer width="100%" height={144}>
@@ -412,16 +412,16 @@ export default function Dashboard(props) {
             <BigStat {...stat} />
           </Grid>
         ))}
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <Widget
-            title="Support Requests"
+            title=""
             upperTitle
             noBodyPadding
             bodyClass={classes.tableWidget}
           >
             <Table data={mock.table} />
           </Widget>
-        </Grid>
+        </Grid> */}
       </Grid>
     </>
   );
